@@ -1,0 +1,26 @@
+services:
+  - type: web
+    name: firefly-iii
+    env: docker
+    plan: free
+    envVars:
+      - key: APP_KEY
+        generateValue: true
+      - key: DB_CONNECTION
+        value: mysql
+      - key: DB_HOST
+        value: firefly-db
+      - key: DB_DATABASE
+        value: firefly
+      - key: DB_USERNAME
+        value: firefly
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: firefly-db
+          property: password
+
+databases:
+  - name: firefly-db
+    plan: free
+    databaseName: firefly
+    user: firefly
